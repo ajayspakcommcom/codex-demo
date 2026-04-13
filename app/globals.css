@@ -15,7 +15,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
+  --font-sans:
+    "Segoe UI", "Helvetica Neue", Arial, ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono:
     ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
     monospace;
@@ -25,7 +26,8 @@ body {
   min-height: 100vh;
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), "Inter", "Segoe UI", sans-serif;
+  font-family:
+    "Segoe UI", "Helvetica Neue", Arial, ui-sans-serif, system-ui, -apple-system, sans-serif;
 }
 
 @layer components {

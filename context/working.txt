@@ -7,4 +7,8 @@
     - for all data fetching, we will use React Server Component => no separate usEffect() + fetch() etc
 
 
-2) 
+2) Set up ALL base pages and layouts, as described in the spec (see SPEC.MD). Do not add any concrete logic, UI authentication, database logic or anything like that.
+   Just create the pages + layouts and outputs dummy content. 
+
+3) Do not remove "inter" => bring back the usage of this font
+4) Fix this font issue
