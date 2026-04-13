@@ -8,9 +8,7 @@ export default function RegisterPage() {
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-(--accent)">
           Public Route
         </p>
-        <h1 className="mt-4 text-3xl font-semibold tracking-tight text-(--foreground)">
-          Register
-        </h1>
+        <h1 className="mt-4 text-3xl font-semibold tracking-tight text-(--foreground)">Register</h1>
         <p className="mt-3 text-sm leading-6 text-(--foreground-muted)">
           This placeholder reserves the future credentials registration form. The controls are
           intentionally disabled so the page stays scaffold-only.

@@ -56,6 +56,10 @@ function createNotFoundError<TData>(): NoteActionResult<TData> {
   };
 }
 
+function isSaveReason(value: unknown): boolean {
+  return value === "autosave" || value === "manual";
+}
+
 async function getSessionUserId(): Promise<string | null> {
   const session = await requireSessionOrRedirect();
   const userId = session?.user?.id;
@@ -86,8 +90,7 @@ export async function createNoteAction(
 
   const noteId = crypto.randomUUID();
   const now = new Date().toISOString();
-  const normalizedTitle =
-    typeof input.title === "string" ? normalizeNoteTitle(input.title) : "";
+  const normalizedTitle = typeof input.title === "string" ? normalizeNoteTitle(input.title) : "";
 
   try {
     createNoteRecord({
@@ -127,6 +130,10 @@ export async function updateNoteAction(
     return createValidationError("Please provide valid note data.");
   }
 
+  if (!isSaveReason(input.reason)) {
+    return createValidationError("Please provide valid note data.");
+  }
+
   if (input.title !== undefined && typeof input.title !== "string") {
     return createValidationError("Please provide valid note data.");
   }
@@ -136,8 +143,7 @@ export async function updateNoteAction(
     return createValidationError(contentValidation.message);
   }
 
-  const normalizedTitle =
-    typeof input.title === "string" ? normalizeNoteTitle(input.title) : "";
+  const normalizedTitle = typeof input.title === "string" ? normalizeNoteTitle(input.title) : "";
   const now = new Date().toISOString();
 
   try {

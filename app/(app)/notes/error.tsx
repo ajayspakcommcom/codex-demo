@@ -14,8 +14,8 @@ export default function NotesError({ reset }: NotesErrorProps) {
         Unable to render the notes scaffold
       </h2>
       <p className="mt-2 text-sm leading-6 text-red-200/90">
-        This route-level placeholder keeps the notes area aligned with the final app structure
-        while returning only generic copy.
+        This route-level placeholder keeps the notes area aligned with the final app structure while
+        returning only generic copy.
       </p>
       <button
         type="button"

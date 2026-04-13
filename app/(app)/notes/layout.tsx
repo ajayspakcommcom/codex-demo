@@ -1,6 +1,10 @@
 import Link from "next/link";
 
-export default function NotesLayout({ children }: LayoutProps<"/notes">) {
+type NotesLayoutProps = {
+  children: React.ReactNode;
+};
+
+export default function NotesLayout({ children }: NotesLayoutProps) {
   return (
     <section className="space-y-6">
       <header className="rounded-3xl border border-(--border) bg-(--surface) p-6 shadow-lg shadow-black/10">

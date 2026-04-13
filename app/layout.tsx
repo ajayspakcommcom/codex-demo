@@ -1,17 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Inter } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "TinyNotes",
-  description: "TinyNotes route and layout scaffolding",
+  description: "Private notes with public sharing",
 };
+
+const headerLinks = [
+  {
+    href: "/login",
+    label: "Login",
+  },
+  {
+    href: "/register",
+    label: "Register",
+  },
+] as const;
 
 export default function RootLayout({
   children,
@@ -20,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased`}>
+      <body className="antialiased">
         <div className="min-h-screen bg-(--background)">
           <div
             aria-hidden="true"
@@ -28,21 +33,25 @@ export default function RootLayout({
           />
           <header className="relative border-b border-(--border) bg-(--background-elevated)/90">
             <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-5 sm:px-6 lg:px-8">
-              <Link href="/" className="text-lg font-semibold tracking-tight text-(--foreground)">
+              <Link href="/" className="text-lg font-semibold text-(--foreground)">
                 TinyNotes
               </Link>
-              <p className="text-sm font-medium text-(--foreground-muted)">Spec route scaffold</p>
+              <nav aria-label="Primary navigation" className="flex items-center gap-2">
+                {headerLinks.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="rounded-lg px-3 py-2 text-sm font-medium text-(--foreground-muted) transition-colors hover:bg-(--surface-soft) hover:text-(--foreground)"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
             </div>
           </header>
           <main className="relative mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
             {children}
           </main>
-          <footer className="border-t border-(--border) bg-(--background-elevated)/70">
-            <div className="mx-auto w-full max-w-6xl px-4 py-4 text-sm text-(--foreground-muted) sm:px-6 lg:px-8">
-              Static scaffolding only. No auth, data, editor, or share logic is enabled in this
-              phase.
-            </div>
-          </footer>
         </div>
       </body>
     </html>

@@ -68,9 +68,7 @@ describe("note actions", () => {
 
   describe("createNoteAction", () => {
     it("returns validation errors for invalid input", async () => {
-      const response = await createNoteAction({
-        contentJson: validContent,
-      } as never);
+      const response = await createNoteAction(null as never);
 
       expect(response).toEqual({
         ok: false,

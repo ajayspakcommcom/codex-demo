@@ -1,4 +1,8 @@
-export default function AppLayout({ children }: LayoutProps<"/">) {
+type AppLayoutProps = {
+  children: React.ReactNode;
+};
+
+export default function AppLayout({ children }: AppLayoutProps) {
   return (
     <section className="space-y-8">
       <header className="rounded-3xl border border-(--border) bg-linear-to-r from-(--surface) via-(--surface) to-(--surface-soft) p-8 shadow-xl shadow-black/20">

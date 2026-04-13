@@ -28,7 +28,7 @@ export function NotFoundState() {
           href="/notes"
           className="rounded-lg bg-(--accent) px-4 py-2 text-sm font-semibold text-slate-950 transition-colors hover:bg-(--accent-strong)"
         >
-          Open notes 
+          Open notes
         </Link>
       </div>
     </AreaShell>

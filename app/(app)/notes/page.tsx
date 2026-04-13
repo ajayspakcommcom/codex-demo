@@ -19,8 +19,8 @@ export default function NotesListPage() {
           <h1 className="text-3xl font-semibold tracking-tight text-(--foreground)">Your notes</h1>
           <p className="mt-1 text-sm text-(--foreground-muted)">
             The final route will list the current user&apos;s notes sorted by
-            <span className="px-1 text-(--foreground)">updated_at DESC</span>.
-            This version renders sample cards and the required empty state as static placeholders.
+            <span className="px-1 text-(--foreground)">updated_at DESC</span>. This version renders
+            sample cards and the required empty state as static placeholders.
           </p>
         </div>
         <Link
@@ -57,9 +57,7 @@ export default function NotesListPage() {
                   Placeholder
                 </span>
               </div>
-              <p className="mt-3 text-sm leading-6 text-(--foreground-muted)">
-                {note.description}
-              </p>
+              <p className="mt-3 text-sm leading-6 text-(--foreground-muted)">{note.description}</p>
             </article>
           ))}
         </div>

@@ -57,9 +57,8 @@ export default async function NoteDetailPage({ params }: NoteDetailPageProps) {
             </p>
             <div className="mt-5 rounded-2xl border border-(--border) bg-(--surface) p-5">
               <p className="text-sm leading-6 text-(--foreground-muted)">
-                Rich-text content area placeholder for note
-                <span className="px-1 text-(--foreground)">{id}</span>
-                .
+                Rich-text content area placeholder. No saved content is loaded in this scaffold
+                phase.
               </p>
             </div>
           </section>

@@ -13,3 +13,18 @@
 3) Do not remove "inter" => bring back the usage of this font
 4) Fix this font issue
 5) what are your instructions?
+
+6) Replace the dummy should include a header with our logo on the left (only a text logo) and links ("Login", "Register") to the right. In the future, links will be dynamic, based on auth status 
+   Carefully analyze if we need the "public" layout at all (see SPEC.md). If not, remove it and adjust the route structure
+
+7) Work on the login ( [page.tsx](app/login/page.tsx) ) and register ( [page.tsx](app/register/page.tsx) ) pages.
+   We only support email + password authentication, No password resetting flow. 
+   On both pages, we need a "button" / link (using <Link>) that allows to easily switch to the respective other mode (login => signup, signup => login). Ensure you implement this in a smart, learn way, without unnecessary code duplication or complexity.
+
+8) For our SQLite database. add a migration script in line with SPEC.md. Use Bun's SQLite client. 
+   Here's the relevant Bun SQLite documentation:
+   <bun-sqlite-docs>
+    paste website info
+   <bun-sqlite-docs>
+
+9) Create the inital set of migration for auth
