@@ -356,10 +356,7 @@ export function NoteEditorForm(props: NoteEditorFormProps) {
     setFeedbackMessage(null);
 
     try {
-      const response = await disableShareAction({
-        id: noteId,
-        shareToken: lastShareTokenRef.current ?? undefined,
-      });
+      const response = await disableShareAction({ id: noteId });
 
       if (!response.ok) {
         setFeedbackMessage(response.error.message);

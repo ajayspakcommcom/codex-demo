@@ -50,6 +50,7 @@
 * Store:
 
   * `content_json` (TipTap JSON string).
+  * Do **not** store or maintain any derived `content_text` column/field.
 * Render:
 
   * TipTap JSON → HTML on server.
@@ -69,6 +70,7 @@
 ### Authenticated
 
 * `GET /notes` → list user’s notes (sorted by `updated_at DESC`).
+  No query params are supported for searching, filtering, or alternate list views.
 * `GET /notes/new` → create note page (editor).
 * `GET /notes/[id]` → view/edit note page (editor + share controls).
 
@@ -92,6 +94,7 @@ Mutations are implemented as Server Actions invoked from forms and client intera
 * `updateNoteAction(input: { id: string; title?: string; contentJson?: object })`
 * `deleteNoteAction(input: { id: string })`
 
+All actions are implemented as Next.js Server Actions / Server Functions and are the only mutation entry points.
 All actions return typed result objects (success/error) and must not leak SQL/internal details in user-facing messages.
 
 ### Share actions (authenticated; require session)
@@ -176,6 +179,7 @@ All actions return typed result objects (success/error) and must not leak SQL/in
 * `user_id TEXT NOT NULL REFERENCES user(id) ON DELETE CASCADE`
 * `title TEXT NOT NULL DEFAULT ''`
 * `content_json TEXT NOT NULL` (serialized TipTap JSON)
+* No `content_text` column
 * `share_enabled INTEGER NOT NULL DEFAULT 0`
 * `created_at TEXT NOT NULL`
 * `updated_at TEXT NOT NULL`
@@ -225,6 +229,8 @@ FROM note
 WHERE user_id = ?
 ORDER BY updated_at DESC;
 ```
+
+No search term, filter, or query-param variants are supported for this query.
 
 **Create note**
 
@@ -337,6 +343,7 @@ LIMIT 1;
 ### Content storage
 
 * Client sends TipTap JSON object.
+* Server persists only `content_json`; no plaintext mirror is stored.
 * Server validates:
 
   * JSON parseable
@@ -367,7 +374,7 @@ LIMIT 1;
 
 ### Server
 
-* Accept partial updates; update `updated_at`.
+* Accept updates through Server Actions only; update `updated_at`.
 * Enforce payload size and ownership.
 * Return updated timestamps and share state.
 

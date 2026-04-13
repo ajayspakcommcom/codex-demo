@@ -1,0 +1,10 @@
+
+
+1) Analyze SPEC.MD   and fix / change the following things:
+    - we will not have content_text
+    - we will not support query params, search or any form of filtering
+    - for all server mutations we will use React / Next.js "Server Functions" (Server Actions)
+    - for all data fetching, we will use React Server Component => no separate usEffect() + fetch() etc
+
+
+2) 

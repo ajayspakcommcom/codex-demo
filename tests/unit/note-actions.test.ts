@@ -76,7 +76,7 @@ describe("note actions", () => {
         ok: false,
         error: {
           code: "VALIDATION_ERROR",
-          message: "Please provide a valid note title.",
+          message: "Please provide valid note data.",
         },
       });
     });
@@ -439,10 +439,10 @@ describe("note actions", () => {
       });
     });
 
-    it("disables sharing and revalidates token path when provided", async () => {
+    it("disables sharing and revalidates note routes", async () => {
       vi.mocked(disableNoteShareRecord).mockReturnValue(true);
 
-      const response = await disableShareAction({ id: "note-1", shareToken: "token-abc" });
+      const response = await disableShareAction({ id: "note-1" });
 
       expect(response).toEqual({
         ok: true,
@@ -457,7 +457,6 @@ describe("note actions", () => {
       });
       expect(vi.mocked(revalidatePath)).toHaveBeenCalledWith("/notes");
       expect(vi.mocked(revalidatePath)).toHaveBeenCalledWith("/notes/note-1");
-      expect(vi.mocked(revalidatePath)).toHaveBeenCalledWith("/s/token-abc");
     });
   });
 });

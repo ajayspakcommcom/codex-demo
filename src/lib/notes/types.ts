@@ -41,7 +41,7 @@ export type NoteActionResult<TData> =
     };
 
 export type CreateNoteActionInput = {
-  title: string;
+  title?: string;
   contentJson: NoteContentJson;
 };
 
@@ -52,8 +52,8 @@ export type CreateNoteActionData = {
 
 export type UpdateNoteActionInput = {
   id: string;
-  title: string;
-  contentJson: NoteContentJson;
+  title?: string;
+  contentJson?: NoteContentJson;
   reason: SaveReason;
 };
 
@@ -80,7 +80,6 @@ export type EnableShareActionData = {
 
 export type DisableShareActionInput = {
   id: string;
-  shareToken?: string;
 };
 
 export type DisableShareActionData = {

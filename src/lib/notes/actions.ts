@@ -75,8 +75,8 @@ export async function createNoteAction(
     return createInternalError("Authentication is currently unavailable.");
   }
 
-  if (!input || typeof input.title !== "string") {
-    return createValidationError("Please provide a valid note title.");
+  if (!input) {
+    return createValidationError("Please provide valid note data.");
   }
 
   const contentValidation = validateNoteContent(input.contentJson);
@@ -86,7 +86,8 @@ export async function createNoteAction(
 
   const noteId = crypto.randomUUID();
   const now = new Date().toISOString();
-  const normalizedTitle = normalizeNoteTitle(input.title);
+  const normalizedTitle =
+    typeof input.title === "string" ? normalizeNoteTitle(input.title) : "";
 
   try {
     createNoteRecord({
@@ -122,7 +123,11 @@ export async function updateNoteAction(
     return createInternalError("Authentication is currently unavailable.");
   }
 
-  if (!input || typeof input.id !== "string" || typeof input.title !== "string") {
+  if (!input || typeof input.id !== "string" || input.id.trim() === "") {
+    return createValidationError("Please provide valid note data.");
+  }
+
+  if (input.title !== undefined && typeof input.title !== "string") {
     return createValidationError("Please provide valid note data.");
   }
 
@@ -131,7 +136,8 @@ export async function updateNoteAction(
     return createValidationError(contentValidation.message);
   }
 
-  const normalizedTitle = normalizeNoteTitle(input.title);
+  const normalizedTitle =
+    typeof input.title === "string" ? normalizeNoteTitle(input.title) : "";
   const now = new Date().toISOString();
 
   try {
@@ -290,10 +296,6 @@ export async function disableShareAction(
 
   revalidatePath("/notes");
   revalidatePath(`/notes/${input.id}`);
-
-  if (typeof input.shareToken === "string" && input.shareToken.trim() !== "") {
-    revalidatePath(`/s/${input.shareToken}`);
-  }
 
   return {
     ok: true,
