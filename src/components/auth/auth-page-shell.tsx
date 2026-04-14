@@ -10,27 +10,27 @@ export function AuthPageShell({ children }: AuthPageShellProps) {
           Credentials Routes
         </p>
         <h2 className="mt-4 text-3xl font-semibold tracking-tight text-(--foreground)">
-          Public entry-point scaffold
+          Private notes, simple sharing
         </h2>
         <p className="mt-3 max-w-xl text-sm leading-6 text-(--foreground-muted)">
-          These pages reserve space for the future Better Auth credential flow. Inputs and actions
-          are intentionally disabled until real authentication behavior is wired in.
+          Sign in to create and edit private notes. Each note can optionally be shared through an
+          unguessable public link that you can disable later.
         </p>
         <dl className="mt-8 grid gap-4 sm:grid-cols-2">
           <div className="rounded-2xl border border-(--border) bg-(--surface-soft)/60 p-4">
             <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-(--accent)">
-              Future behavior
+              Authentication
             </dt>
             <dd className="mt-2 text-sm text-(--foreground-muted)">
-              Register and login will submit credentials and establish a session cookie.
+              Email and password only. Successful sign-in redirects directly to your notes.
             </dd>
           </div>
           <div className="rounded-2xl border border-(--border) bg-(--surface-soft)/60 p-4">
             <dt className="text-xs font-semibold uppercase tracking-[0.18em] text-(--accent)">
-              Current phase
+              Sharing
             </dt>
             <dd className="mt-2 text-sm text-(--foreground-muted)">
-              Route shells, labels, and layout structure only.
+              Shared notes are read-only and can be regenerated or revoked at any time.
             </dd>
           </div>
         </dl>

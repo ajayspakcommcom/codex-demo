@@ -18,12 +18,10 @@ export default function NotesLayout({ children }: NotesLayoutProps) {
         </nav>
         <div className="mt-4 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <h2 className="text-2xl font-semibold tracking-tight text-(--foreground)">
-              Notes layout scaffold
-            </h2>
+            <h2 className="text-2xl font-semibold tracking-tight text-(--foreground)">Notes</h2>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-(--foreground-muted)">
-              This shared layout provides the future notes-area chrome for the index, create, and
-              note detail routes. Everything inside remains static dummy content for now.
+              Create, edit, and share notes. Changes save in place, and shared links can be
+              regenerated or disabled at any time.
             </p>
           </div>
           <nav

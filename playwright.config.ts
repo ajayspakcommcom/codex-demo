@@ -1,23 +1,16 @@
-import os from "node:os";
-import path from "node:path";
 import { defineConfig, devices } from "@playwright/test";
-
-const appPort = 3100;
-const baseUrl = `http://127.0.0.1:${appPort}`;
-const e2eDbPath = path.join(os.tmpdir(), `tinynotes-e2e-${Date.now()}.db`);
-const authSecret =
-  process.env.AUTH_SECRET?.trim() || "tinynotes-e2e-auth-secret-value-with-32-plus-chars";
 
 export default defineConfig({
   testDir: "./tests/e2e",
-  fullyParallel: false,
-  forbidOnly: Boolean(process.env.CI),
+  fullyParallel: true,
+  forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: 1,
-  reporter: process.env.CI ? "html" : "list",
+  workers: process.env.CI ? 1 : undefined,
+  reporter: "html",
   use: {
-    baseURL: baseUrl,
+    baseURL: "http://127.0.0.1:3000",
     trace: "on-first-retry",
+    screenshot: "only-on-failure",
   },
   projects: [
     {
@@ -26,14 +19,10 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: `bun run migrate:up && bun run build && bun run start -- --port ${appPort}`,
-    url: baseUrl,
-    reuseExistingServer: false,
-    env: {
-      ...process.env,
-      APP_URL: baseUrl,
-      AUTH_SECRET: authSecret,
-      DB_PATH: e2eDbPath,
-    },
+    command:
+      "DB_PATH=./data/e2e.db AUTH_SECRET=playwright-test-secret-1234567890 APP_URL=http://127.0.0.1:3000 bun scripts/migrate.ts up && DB_PATH=./data/e2e.db AUTH_SECRET=playwright-test-secret-1234567890 APP_URL=http://127.0.0.1:3000 bun run --bun next dev --port 3000",
+    url: "http://127.0.0.1:3000",
+    reuseExistingServer: !process.env.CI,
+    timeout: 120_000,
   },
 });

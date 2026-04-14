@@ -64,3 +64,19 @@
     - I can't type into the main editor box (I can't click in there)
     - There is no "Save" button 
     - The entire "save area" (text + button) should be on the right => actually, in the same row as the title input box (on mobile screens it should be stacked though)  
+
+18) Add unit unit and e2e testing to this Next.js app. Use Vitest for unit testing and Playwright for e2e testing. The liabraries
+  are already installed.
+      For properly configuring the project, see these docs for Next.js + Vitest:
+      <nextjs-vitest-setup-docs>
+       [Pasted Content 5540 chars]
+      <nextjs-vitest-setup-docs>
+  Also use the context7 mcp for looking up more docs (eg Vitest, Playwright) as needed.
+ 
+  Add both unit and e2e tests for the existing app. Add a comprehensive test suite that tests all core features,
+  including potentials errors or things that could go wrong. Write tests that tests the intended behaviour, NOT tests
+  that just pass => The code should work as intended, tests should fail if it doesn't.
+
+ 19) 
+
+

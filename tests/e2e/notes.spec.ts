@@ -1,43 +1,53 @@
 import { expect, test } from "@playwright/test";
+import { createCredentials, register } from "./helpers/auth";
+import { createNote } from "./helpers/notes";
 
-test.describe("notes route scaffolds", () => {
-  test("renders the notes index with shared layout chrome and empty-state placeholder", async ({
-    page,
-  }) => {
+test.describe("notes", () => {
+  test("shows an empty state for a new user and creates an untitled note", async ({ page }) => {
+    const credentials = createCredentials("notes-empty");
+
+    await register(page, credentials);
+    await expect(page.getByRole("heading", { name: "No notes yet" })).toBeVisible();
+
+    await createNote(page, { bodyText: "First note body" });
+
+    await expect(page.getByRole("heading", { name: "Edit note" })).toBeVisible();
+
     await page.goto("/notes");
-
-    await expect(page.getByRole("heading", { name: "Protected route scaffold" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Notes layout scaffold" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Your notes" })).toBeVisible();
-    await expect(page.getByRole("navigation", { name: "Notes navigation" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Sample note list" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Empty state placeholder" })).toBeVisible();
+    await expect(page.getByRole("link", { name: /Untitled note/i })).toBeVisible();
   });
 
-  test("renders the create-note scaffold with disabled controls", async ({ page }) => {
-    await page.goto("/notes/new");
+  test("persists manual saves, autosaves later edits, and deletes notes", async ({ page }) => {
+    const credentials = createCredentials("notes-edit");
 
-    await expect(page.getByRole("heading", { name: "Create note" })).toBeVisible();
-    await expect(page.getByLabel("Title")).toBeDisabled();
+    await register(page, credentials);
+    await createNote(page, { title: "Draft title", bodyText: "First revision" });
+
+    const editor = page.locator("div[contenteditable='true']").first();
+
+    await page.getByLabel("Title").fill("Project plan");
+    await editor.click();
+    await editor.fill("Manual save content");
+    await page.getByRole("button", { name: "Save" }).click();
+
+    await expect(page.getByText(/^Saved$/)).toBeVisible();
+
+    await page.reload();
+    await expect(page.getByLabel("Title")).toHaveValue("Project plan");
+    await expect(editor).toContainText("Manual save content");
+
+    await editor.click();
+    await editor.fill("Autosaved content");
     await expect(page.getByText("Unsaved changes")).toBeVisible();
-    await expect(page.getByRole("button", { name: "Clear" })).toBeDisabled();
-    await expect(page.getByRole("button", { name: "Save" })).toBeDisabled();
-    await expect(page.getByRole("heading", { name: "Editor placeholder" })).toBeVisible();
-  });
+    await expect(page.getByText(/^Saved$/)).toBeVisible({ timeout: 6_000 });
 
-  test("renders the note detail scaffold with editor, status, and share panels", async ({
-    page,
-  }) => {
-    await page.goto("/notes/example-note-id");
+    await page.reload();
+    await expect(editor).toContainText("Autosaved content");
 
-    await expect(page.getByRole("heading", { name: "Note workspace" })).toBeVisible();
-    await expect(page.getByText("example-note-id")).toBeVisible();
-    await expect(page.getByLabel("Title")).toBeDisabled();
-    await expect(page.getByRole("heading", { name: "Editor placeholder" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Note status placeholder" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Share controls placeholder" })).toBeVisible();
-    await expect(page.getByLabel("Share URL")).toBeDisabled();
-    await expect(page.getByRole("button", { name: "Enable sharing" })).toBeDisabled();
-    await expect(page.getByRole("button", { name: "Disable sharing" })).toBeDisabled();
+    page.once("dialog", (dialog) => dialog.accept());
+    await page.getByRole("button", { name: "Delete note" }).click();
+
+    await expect(page).toHaveURL(/\/notes$/);
+    await expect(page.getByRole("link", { name: /Project plan/i })).toHaveCount(0);
   });
 });

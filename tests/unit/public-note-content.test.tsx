@@ -97,4 +97,48 @@ describe("PublicNoteContent", () => {
     expect(goodLink.getAttribute("rel")).toContain("noreferrer");
     expect(goodLink.getAttribute("target")).toBe("_blank");
   });
+
+  it("renders headings, lists, blockquotes, and code blocks", () => {
+    render(
+      <PublicNoteContent
+        contentJson={{
+          type: "doc",
+          content: [
+            {
+              type: "heading",
+              attrs: { level: 2 },
+              content: [{ type: "text", text: "Section title" }],
+            },
+            {
+              type: "bulletList",
+              content: [
+                {
+                  type: "listItem",
+                  content: [
+                    {
+                      type: "paragraph",
+                      content: [{ type: "text", text: "Item one" }],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: "blockquote",
+              content: [{ type: "paragraph", content: [{ type: "text", text: "Quoted text" }] }],
+            },
+            {
+              type: "codeBlock",
+              content: [{ type: "text", text: "const answer = 42;" }],
+            },
+          ],
+        }}
+      />,
+    );
+
+    expect(screen.getByRole("heading", { level: 2, name: "Section title" })).toBeTruthy();
+    expect(screen.getByText("Item one").closest("li")).toBeTruthy();
+    expect(screen.getByText("Quoted text").closest("blockquote")).toBeTruthy();
+    expect(screen.getByText("const answer = 42;").closest("pre")).toBeTruthy();
+  });
 });

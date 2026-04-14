@@ -107,7 +107,7 @@ export function CredentialsAuthForm({ mode }: CredentialsAuthFormProps) {
 
   return (
     <section className="w-full max-w-md rounded-2xl border border-(--border) bg-(--surface) p-6 shadow-2xl shadow-black/35 sm:p-8">
-      <h1 className="text-2xl font-semibold tracking-tight text-foreground)">{copy.title}</h1>
+      <h1 className="text-2xl font-semibold tracking-tight text-(--foreground)">{copy.title}</h1>
       <p className="mt-2 text-sm text-(--foreground-muted)">{copy.summary}</p>
 
       <form className="mt-7 space-y-5" onSubmit={onSubmit}>
