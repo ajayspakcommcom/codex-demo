@@ -37,3 +37,6 @@
     Use the context7 MCP to explore the relevant better-auth docs. We're in a Next.js project, using Bun, SQLite (via Bun's SQLite client) and Typescript. We use raw SQL statements (no library or ORM) and the database tables are already setup (see [0001_init.sql](migrations/0001_init.sql)) 
 
 11) Add a logout button to the header AND make sure to NOT show "Login" and "Register" there if the user is logged in. Instead "Notes" and that logout button.
+
+12) Review the entire codebase ( All .tsx files ) and check if we're writing proper modern TailwindCSS module.
+    [$modern-tailwind](/Users/spakcomm-ajay/Documents/codex-demo/.codex/skills/modern-tailwind/SKILL.md) 
