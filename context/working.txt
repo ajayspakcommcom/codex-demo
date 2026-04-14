@@ -40,3 +40,21 @@
 
 12) Review the entire codebase ( All .tsx files ) and check if we're writing proper modern TailwindCSS module.
     [$modern-tailwind](/Users/spakcomm-ajay/Documents/codex-demo/.codex/skills/modern-tailwind/SKILL.md) 
+
+13) List all users in our database. You find the database file in the "data" folder.
+
+14) 1. code-review => a new skill that should clearly define what to watch out for or focus on when performing code reviews.
+    2. "Carefully review the entire codebase  for bug or errors" or "Analyze the codebase for security or performance"
+    3. no resources 
+    4. ./codex/skills
+
+    The skill must that the AI thoroughly check ALL files (or ALL MENTIONED files) for logic or other bugs, 
+    type error, security issues and performance issues. If the user specifies other areas to focus on, those user
+    instructions must be followed. 
+    When performing code reviews, the code MUST NEVER be changed! The goal is to carefully analyze the codebase, 
+    understand it and generate a comprehensive report.  
+    
+
+15) Perform an in-depth code review. [$code-review](/Users/spakcomm-ajay/Documents/codex-demo/.codex/skills/code-review/SKILL.md) 
+
+16) Fix issues 1 and 2. Do NOT fix 3 => we should NOT ensure authentication on layout-level. The current approach is fine. Also ignore your tailwind findings, those class are actually fine. 
