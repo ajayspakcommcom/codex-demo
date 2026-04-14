@@ -58,3 +58,9 @@
 15) Perform an in-depth code review. [$code-review](/Users/spakcomm-ajay/Documents/codex-demo/.codex/skills/code-review/SKILL.md) 
 
 16) Fix issues 1 and 2. Do NOT fix 3 => we should NOT ensure authentication on layout-level. The current approach is fine. Also ignore your tailwind findings, those class are actually fine. 
+
+17) Looks like there are a couple of bugs when trying to add a new note (probably also when trying to edit, but it can't test)
+    this is becuase I can't add in the first place): 
+    - I can't type into the main editor box (I can't click in there)
+    - There is no "Save" button 
+    - The entire "save area" (text + button) should be on the right => actually, in the same row as the title input box (on mobile screens it should be stacked though)  
