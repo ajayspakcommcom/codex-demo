@@ -28,3 +28,12 @@
    <bun-sqlite-docs>
 
 9) Create the inital set of migration for auth
+
+10) implement authentication using better-auth, in line with [SPEC.MD](SPEC.MD) 
+
+    Ensure both the login ( [page.tsx](app/login/page.tsx) ) and register ( [page.tsx](app/register/page.tsx) ) pages work and allow users to login / register. No 
+    password resetting or anything like that. 
+
+    Use the context7 MCP to explore the relevant better-auth docs. We're in a Next.js project, using Bun, SQLite (via Bun's SQLite client) and Typescript. We use raw SQL statements (no library or ORM) and the database tables are already setup (see [0001_init.sql](migrations/0001_init.sql)) 
+
+11) Add a logout button to the header AND make sure to NOT show "Login" and "Register" there if the user is logged in. Instead "Notes" and that logout button.
